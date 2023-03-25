@@ -180,7 +180,7 @@ int main(int argc, char* argv[])
                     while(true){
                         std::getline(file, msg);
                         if(msg == "loop:"){
-                            std::cout<<"lol"<<std::endl;
+                            //std::cout<<"lol"<<std::endl;
                             break;
                         }
                         else if(std::strcmp(c1,"sleep")==0){
