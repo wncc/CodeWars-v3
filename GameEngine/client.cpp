@@ -210,6 +210,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -230,6 +231,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -273,6 +275,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -293,6 +296,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -313,6 +317,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -335,6 +340,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -355,6 +361,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -375,6 +382,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -397,6 +405,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -417,6 +426,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -437,6 +447,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -459,6 +470,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -479,6 +491,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -499,6 +512,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -521,6 +535,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -541,6 +556,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -561,6 +577,7 @@ int main(int argc, char* argv[])
                                         mesg[j] = vec[i][j];
                                     }
                                     cli.write(mesg);
+                                    sleep(1);
                                 }
                             }
                         }
@@ -586,7 +603,7 @@ int main(int argc, char* argv[])
                                 }
                                 std::cout<<std::endl;
                                 cli.write(mesg);
-                                std::cout<<"Hmm"<<std::endl;
+                                sleep(1);
                             }
                             l++;
                         }
@@ -610,6 +627,7 @@ int main(int argc, char* argv[])
                                     mesg[j] = vec[i][j];
                                 }
                                 cli.write(mesg);
+                                sleep(1);
                             }
                         }
                     }
@@ -620,13 +638,13 @@ int main(int argc, char* argv[])
                 else{
                     std::string l = msg;
                     msg = l;
+                    std::array<char, 512UL> mesg;
+                    for(int i = 0; i<msg.length(); i++){
+                        mesg[i] = msg[i];
+                    }
+                    cli.write(mesg);
+                    sleep(1);
                 }
-
-                std::array<char, 512UL> mesg;
-                for(int i = 0; i<msg.length(); i++){
-                    mesg[i] = msg[i];
-                }
-                cli.write(mesg);
             }
         }
         //=======================================================
