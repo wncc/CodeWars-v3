@@ -20,7 +20,6 @@
 #include <set>
 #include <utility>
 #include "protocol.hpp"
-#include <jsoncpp/json/json.h>
 #include "../GameLogic/GameFactors.h"
 #include <cstring>
 #include <boost/thread.hpp>
