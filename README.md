@@ -26,7 +26,7 @@ python <team_name>.py > team_number.txt
 
 Finally run the following in separate terminals inside the Object directory:
 ```
-./main 4000 6000
+./main 6000
 ./client <player_number0> 127.0.0.1 6000
 ./client <player_number1> 127.0.0.1 6000
 ```
