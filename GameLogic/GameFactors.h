@@ -144,19 +144,6 @@ struct Kingdom
         return false;
         
     } // increases defense capabilities per second
-    bool square_assign(int x, int y, char a)
-    { // function to make a square at a particular location either red or yellow
-        attack_square[x][y] = a;
-        if (a == 'r')
-        {
-            defence_rating = defence_rating - 2;
-        }
-        else if (a == 'y')
-        {
-            defence_rating = defence_rating - 1;
-        }
-        return true;
-    }
     bool spy_capture(Kingdom *k, int n)
     {
         if(n>=100){

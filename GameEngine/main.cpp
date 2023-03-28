@@ -27,7 +27,6 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <vector>
 #include <cstdlib>
-#
 using boost::asio::ip::tcp;
 
 int i=0;
@@ -631,9 +630,11 @@ private:
                 else if(std::strcmp(c1,"id") == 0){
                     shared_from_this()->k.improve_defense(std::stoi(c2), std::stof(c3));
                 }
+                /*
                 else if(std::strcmp(c1,"sa") == 0){
                     shared_from_this()->k.square_assign(std::stoi(c2), std::stoi(c3), *c4);
                 }
+                */
                 else if(std::strcmp(c1,"sc") == 0){
                     shared_from_this()->k.spy_capture(&arr[std::stoi(c2)], std::stoi(c3));
                 }
@@ -948,7 +949,6 @@ int main(int argc, char * argv[])
 
         grass->drawGrass();
         walls->drawWalls();
-        region->drawShades();
         for(unsigned int o = 0; o<spyCoords1.size(); o++)
             spy1->drawSpy(spyCoords1[o].x, spyCoords1[o].y);
         for(unsigned int o = 0; o<spyCoords2.size(); o++)
@@ -957,7 +957,6 @@ int main(int argc, char * argv[])
             spy1->drawSpy(spyCoords3[o].x, spyCoords3[o].y);
         for(unsigned int o = 0; o<spyCoords4.size(); o++)
             spy1->drawSpy(spyCoords4[o].x, spyCoords4[o].y);
-        troop->drawTroop(7,7);
         for(unsigned int o = 0; o<troopCoords1.size(); o++)
             troop2->drawTroop(troopCoords1[o].x, troopCoords1[o].y);
         for(unsigned int o = 0; o<troopCoords2.size(); o++)

@@ -13,6 +13,7 @@ FOr boost, use [this](https://www.geeksforgeeks.org/how-to-install-c-boost-libra
 Use [this](https://www.sfml-dev.org/download/sfml/2.3.1/) for SFML
 
 # Instructions to run the code:</br>
+Create an account on github and download this repository.</br>
 Create a directory "Object" in the CodeWars-v3 folder. </br>
 Run the compile.py file as follows (this only needs to be run once):</br>
 ```

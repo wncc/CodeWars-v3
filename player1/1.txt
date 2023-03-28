@@ -1,3 +1,7 @@
 loop:
 rt:3:
+rs:5:
+re:10:
+rm:19:
+rf:10:
 loop:
