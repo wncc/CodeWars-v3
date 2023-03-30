@@ -29,7 +29,7 @@ struct Kingdom
     int land_length=10;
     int land_area = land_length * land_width;
 
-    float percent_occ[4];
+    float percent_occ[4]={0,0,0,0};
 
     char attack_square[1000][1000]; //can take values 'r', 'y' and by default its 'g'
     int troops[1000][1000]; //a 2d array that takes in x-y coordinates as input and outputs the number of troops deployed at that location
