@@ -174,7 +174,7 @@ struct Kingdom
             if(ans>0)
                 num_troops -= (((100.00-ans)*n)/10000.0)*num_troops;
             else
-                num_troops = 0;
+                num_troops -= (n/100.0)*num_troops;
         }
         food -= food*(n/100.0);
         k->percent_occ[num]+=ans;
