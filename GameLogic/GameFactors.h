@@ -16,7 +16,7 @@ struct Kingdom
     int defence_rating=0; // measure of how good the defense of a kingdom is
     int offence_rating=0; // measure of how good the attack/offense of a kingdom is
     int num_troops=10; //stores the total number of troops in the population not in the battlefield
-    int num_spies;  // stores the total number of spies in the population not in the battlefield
+    int num_spies=0;  // stores the total number of spies in the population not in the battlefield
     int num_farmers=10; //stores the total number of farmers in the population
     int num_engineers=10; //stores the total number of engineers in the population
     int num_miners=10; //stores the total number of miners in the population
@@ -30,8 +30,6 @@ struct Kingdom
     int land_area = land_length * land_width;
 
     float percent_occ[4]={0,0,0,0};
-
-    char attack_square[1000][1000]; //can take values 'r', 'y' and by default its 'g'
     bool lost = false;
 
 
@@ -105,7 +103,7 @@ struct Kingdom
     }
 
 
-    bool improve_attack(int raw_materials, float fraction)
+    bool improve_attack(float fraction)
     {
         if(fraction>=1){
             fraction=1;
@@ -122,7 +120,7 @@ struct Kingdom
         sleep(1);
         return false;
     } // increases attack capabilities per second
-    bool improve_defense(int raw_materials, float fraction)
+    bool improve_defense(float fraction)
     {
         if(fraction>=1){
             fraction=1;
@@ -167,17 +165,19 @@ struct Kingdom
             return -1;
         }
         int ans=0;
-        if(k->defence_rating < 0.001)
-            ans = 80;
-        else{
+        if(!offence_rating < 0.001){
             ans = ((-k->defence_rating + (n/100.0)*offence_rating)/((n/100.0)*offence_rating))*100.0; 
-            if(ans>0)
+            if(ans>0){
                 num_troops -= (((100.00-ans)*n)/10000.0)*num_troops;
-            else
+                land_area+=(ans/2)*land_area/100.0;
+                k->percent_occ[num]+=ans;
+                food -= food*(n/100.0);
+            }
+            else{
                 num_troops -= (n/100.0)*num_troops;
+                food -= food*(n/100.0);
+            } 
         }
-        food -= food*(n/100.0);
-        k->percent_occ[num]+=ans;
         //std::cout<<"Percent_occ "<<k->percent_occ[num]<<std::endl;
         int count= 0;
         for(int i=0; i<4; i++){

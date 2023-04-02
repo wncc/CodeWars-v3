@@ -625,10 +625,10 @@ private:
                     }
                 }
                 else if(std::strcmp(c1,"ia") == 0){
-                    shared_from_this()->k.improve_attack(std::stoi(c2), std::stof(c3));
+                    shared_from_this()->k.improve_attack(std::stof(c2));
                 }
                 else if(std::strcmp(c1,"id") == 0){
-                    shared_from_this()->k.improve_defense(std::stoi(c2), std::stof(c3));
+                    shared_from_this()->k.improve_defense(std::stof(c2));
                 }
                 /*
                 else if(std::strcmp(c1,"sa") == 0){
