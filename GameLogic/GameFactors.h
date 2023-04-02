@@ -170,8 +170,11 @@ struct Kingdom
         if(k->defence_rating < 0.001)
             ans = 80;
         else{
-            ans = ((-k->defence_rating + offence_rating)/(k->defence_rating))*100.0; 
-            num_troops -= (ans*n/400.0)*num_troops;
+            ans = ((-k->defence_rating + offence_rating)/(offence_rating))*100.0; 
+            if(ans>0)
+                num_troops -= (ans*n/400.0)*num_troops;
+            else
+                num_troops = 0;
         }
         food -= food*(n/100.0);
         k->percent_occ[num]+=ans;
