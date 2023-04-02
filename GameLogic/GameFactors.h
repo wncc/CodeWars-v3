@@ -169,10 +169,10 @@ struct Kingdom
         int ans=0;
         if(k->defence_rating < 0.001)
             ans = 80;
-        else
+        else{
             ans = ((-k->defence_rating + offence_rating)/(k->defence_rating))*100.0; 
-        if(ans>0)
             num_troops -= (ans*n/400.0)*num_troops;
+        }
         food -= food*(n/100.0);
         k->percent_occ[num]+=ans;
         //std::cout<<"Percent_occ "<<k->percent_occ[num]<<std::endl;
