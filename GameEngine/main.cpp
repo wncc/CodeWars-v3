@@ -638,9 +638,6 @@ private:
                 else if(std::strcmp(c1,"sc") == 0){
                     shared_from_this()->k.spy_capture(&arr[std::stoi(c2)], std::stoi(c3));
                 }
-                else if(std::strcmp(c1,"ds") == 0){
-                    shared_from_this()->k.deploySpy(std::stoi(c2),&arr[std::stoi(c3)]);
-                }
                 else if(std::strcmp(c1, "at") == 0){
                     int z = std::stoi(c2);
                     int i = 0;
@@ -749,12 +746,17 @@ private:
 };
 
 int winLoop(){
+    int a[4] = {0,0,0,0};
     while(true){
         //std::cout<<"winLoop"<<std::endl;
         int counter = 0;
         int store;
         for(int s=0; s<4; s++){
             if(arr[s].lost){
+                if(a[s] == 0){
+                    std::cout<<"Player "<<s<<" has lost!!"<<std::endl;
+                    a[s]=1;
+                }
                 counter++;
             }
             else{

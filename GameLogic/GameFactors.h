@@ -32,10 +32,6 @@ struct Kingdom
     float percent_occ[4]={0,0,0,0};
 
     char attack_square[1000][1000]; //can take values 'r', 'y' and by default its 'g'
-    int troops[1000][1000]; //a 2d array that takes in x-y coordinates as input and outputs the number of troops deployed at that location
-    int troop;
-    int spy;
-    int spies[1000][1000];
     bool lost = false;
 
 
@@ -153,9 +149,9 @@ struct Kingdom
             n=0;
             return false;
         }
-        k->spy = k->spy - (n/100)*(k->spy);
+        k->num_spies = k->num_spies - (n/100)*(k->num_spies);
         k->defence_rating = (k->defence_rating)*(1-(1/200.0));
-        raw_materials-=(n/180.0)*(raw_materials);
+        raw_materials-=(n/100.0)*(raw_materials);
         sleep(1);
         return true;
     }
@@ -191,21 +187,6 @@ struct Kingdom
         return ans;
     }
 
-
-
-    void deploySpy(int n, Kingdom *k)
-    { // n is the number of spies to be deployed at the battlefield
-        int num_spies_war = n;
-        for (int i = 0; i < k->land_width - 1; i++)
-        {
-            for (int j = 0; j < k->land_length - 1; j++)
-            {
-                int nSpies = k->troops[i][j];
-                n = n - nSpies;
-            }
-        }
-        sleep(1);
-    }
 };
 
 Kingdom arr[4];
