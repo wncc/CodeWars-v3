@@ -427,7 +427,7 @@ public:
             //std::cout<<"Here"<<std::endl;
             participant->num=std::stoi(nickname.data());
             arr[i].num = std::stoi(nickname.data());
-            std::cout<<"wow"<<std::endl;
+            //std::cout<<"wow"<<std::endl;
             i++;
         }
         else{
@@ -540,7 +540,7 @@ private:
                 s[k]= read_msg_[k];
                 k++;
             }
-            std::cout<<s<<std::endl;
+            //std::cout<<s<<std::endl;
             char *c1 = strtok(s, ":");
             char *c2 =strtok(NULL, ":");
             char *c3 = strtok(NULL, ":");
@@ -643,13 +643,16 @@ private:
                 }
                 else if(std::strcmp(c1, "at") == 0){
                     int z = std::stoi(c2);
-                    if(std::stoi(c2) == shared_from_this()->num){
+                    int i = 0;
+                    while(arr[z].lost || std::stoi(c2) == shared_from_this()->num){
                         z=(z+1)%4;
-                        while(arr[z].lost){
-                            z=(z+1)%4;
+                        i++;
+                        if(i==4){
+                            break;
                         }
                     }
-                    int x = shared_from_this()->k.attack(&(arr[std::stoi(c2)]), std::stoi(c3));
+                    int x = shared_from_this()->k.attack(&(arr[z]), std::stoi(c3));
+                    
                     if(x>100){
                         x=100;
                     }
@@ -747,7 +750,8 @@ private:
 
 int winLoop(){
     while(true){
-    int counter = 0;
+        //std::cout<<"winLoop"<<std::endl;
+        int counter = 0;
         int store;
         for(int s=0; s<4; s++){
             if(arr[s].lost){
@@ -760,9 +764,6 @@ int winLoop(){
         if(counter == 3){
             std::cout<<"PLAYER "<<store<<" HAS WON!!"<<std::endl;
             return store;
-        }
-        else{
-            return -1;
         }
     }
 }

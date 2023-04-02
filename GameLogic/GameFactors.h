@@ -20,9 +20,9 @@ struct Kingdom
     int num_farmers=10; //stores the total number of farmers in the population
     int num_engineers=10; //stores the total number of engineers in the population
     int num_miners=10; //stores the total number of miners in the population
-    unsigned int raw_materials = 100; // amount of gold in the inventory which is initially 100
-    unsigned int food = 100;          // amount of food in the inventory
-        char loc[1000][1000]; //defining location as 2d array (1000*1000 canvas)
+    int raw_materials = 100; // amount of gold in the inventory which is initially 100
+    int food = 100;          // amount of food in the inventory
+    char loc[1000][1000]; //defining location as 2d array (1000*1000 canvas)
     // The territory of each kingdom is supposed to be in square shape, thus the boundaries having their length and width have been defined below
 
     int land_width=10;
@@ -171,16 +171,18 @@ struct Kingdom
             return -1;
         }
         int ans=0;
-        ans = ((k->defence_rating - defence_rating/2.0 - offence_rating/2.0)/(k->defence_rating))*100.0; 
+        if(k->defence_rating < 0.001)
+            ans = 80;
+        else
+            ans = ((-k->defence_rating + offence_rating)/(k->defence_rating))*100.0; 
         if(ans>0)
             num_troops -= (ans*n/400.0)*num_troops;
-        food -= food*(n/160.0);
+        food -= food*(n/100.0);
         k->percent_occ[num]+=ans;
+        //std::cout<<"Percent_occ "<<k->percent_occ[num]<<std::endl;
         int count= 0;
         for(int i=0; i<4; i++){
-            if(i!=k->num){
-                count+= percent_occ[i];
-            }
+            count+= k->percent_occ[i];
         }
         if(count>=100){
             k->lost= true;

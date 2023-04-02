@@ -206,9 +206,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -227,9 +228,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -248,9 +250,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -271,9 +274,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -292,9 +296,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -313,9 +318,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -336,9 +342,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -357,9 +364,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -378,9 +386,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -401,9 +410,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -422,9 +432,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -443,9 +454,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -466,9 +478,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -487,9 +500,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -508,9 +522,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -531,9 +546,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -552,9 +568,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -573,9 +590,10 @@ int main(int argc, char* argv[])
                                         sleep(std::stof(c7));
                                     }
                                     std::array<char, 512UL> mesg;
-                                    for(int j = 0; j<msg.length(); j++){
+                                    for(int j = 0; j<vec[i].length(); j++){
                                         mesg[j] = vec[i][j];
                                     }
+                                    mesg[vec[i].length()] = '\0';
                                     cli.write(mesg);
                                     sleep(1);
                                 }
@@ -597,11 +615,10 @@ int main(int argc, char* argv[])
                                     sleep(std::stof(c7));
                                 }
                                 std::array<char, 512UL> mesg;
-                                for(int j = 0; j<msg.length(); j++){
+                                for(int j = 0; j<vec[i].length(); j++){
                                     mesg[j] = vec[i][j];
-                                    std::cout<<mesg[j];
                                 }
-                                std::cout<<std::endl;
+                                mesg[vec[i].length()] = '\0';
                                 cli.write(mesg);
                                 sleep(1);
                             }
@@ -623,9 +640,12 @@ int main(int argc, char* argv[])
                                     sleep(std::stof(c7));
                                 }
                                 std::array<char, 512UL> mesg;
-                                for(int j = 0; j<msg.length(); j++){
+                                for(int j = 0; j<vec[i].length(); j++){
                                     mesg[j] = vec[i][j];
+                                    //std::cout<<mesg[j];
                                 }
+                                mesg[vec[i].length()] = '\0';
+                                //std::cout<<std::endl;
                                 cli.write(mesg);
                                 sleep(1);
                             }
