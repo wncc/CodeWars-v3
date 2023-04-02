@@ -172,7 +172,7 @@ struct Kingdom
         else{
             ans = ((-k->defence_rating + offence_rating)/(offence_rating))*100.0; 
             if(ans>0)
-                num_troops -= (ans*n/100.0)*num_troops;
+                num_troops -= (n/100.0)*num_troops;
             else
                 num_troops = 0;
         }
