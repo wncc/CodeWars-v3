@@ -54,6 +54,10 @@ struct Kingdom
             n=0;
             return false;
         }
+        if(food == 0){
+            sleep(1);
+            return 0;
+        }
         num_engineers = num_engineers + n/10;
         food = food -(2*n/100.00)*food;
         sleep(1);
@@ -66,6 +70,10 @@ struct Kingdom
         if(n<0){
             n=0;
             return false;
+        }
+        if(food == 0){
+            sleep(1);
+            return 0;
         }
         num_troops = num_troops + n/10;
         food = food - (n/100.00)*food;
@@ -81,6 +89,10 @@ struct Kingdom
             n=0;
             return false;
         }
+        if(food == 0){
+            sleep(1);
+            return 0;
+        }
         num_miners = num_miners + n/10;
         food = food -(n/100.00)*food;
         sleep(1);
@@ -94,6 +106,10 @@ struct Kingdom
         if(n<0){
             n=0;
             return false;
+        }
+        if(food == 0){
+            sleep(1);
+            return 0;
         }
         num_spies = num_spies + n/10;
         defence_rating = defence_rating + n/4.0;
