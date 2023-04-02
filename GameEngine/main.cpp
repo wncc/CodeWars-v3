@@ -792,7 +792,7 @@ int gameLoop(){
                         arr[p].num_engineers -= 1;
                     }
                 }
-                arr[p].food -= 0.1*(arr[p].num_troops + arr[p].num_miners - 2*(arr[p].num_farmers)) + 0.01*(arr[p].land_area);
+                arr[p].food -= 0.1*(arr[p].num_troops + arr[p].num_miners - 2*(arr[p].num_farmers)) - 0.01*(arr[p].land_area);
                 arr[p].raw_materials -= 0.1*(arr[p].num_troops - arr[p].num_miners - 2*(arr[p].num_farmers)) - 0.01*(arr[p].land_area);
             }
         }
