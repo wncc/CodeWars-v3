@@ -755,7 +755,7 @@ int winLoop(){
     while(true){
         //std::cout<<"winLoop"<<std::endl;
         int counter = 0;
-        int won;
+        int won=0;
         for(int i = 0; i<number_of_players; i++){
             if(lost_arr[arr[i].num] == 0){
                 counter++;
