@@ -28,7 +28,7 @@
 #include <vector>
 #include <cstdlib>
 using boost::asio::ip::tcp;
-
+int lost_arr[4] = {0,0,0,0};
 int i=0;
 
 // create the window
@@ -746,26 +746,30 @@ private:
 };
 
 int winLoop(){
-    int a[4] = {0,0,0,0};
+    
     while(true){
         //std::cout<<"winLoop"<<std::endl;
         int counter = 0;
-        int store;
-        for(int s=0; s<4; s++){
-            if(arr[s].lost){
-                if(a[s] == 0){
-                    std::cout<<"Player "<<s<<" has lost!!"<<std::endl;
-                    counter++;
-                    a[s]=1;
-                }   
+        int won;
+        for(int i = 0; i<4; i++){
+            if(lost_arr[arr[i].num] == 0){
+                counter++;
             }
             else{
-                store=arr[s].num;
+                won = arr[i].num;
             }
         }
+
         if(counter == 3){
-            std::cout<<"PLAYER "<<store<<" HAS WON!!"<<std::endl;
-            return store;
+            std::cout<<"Player "<<won<<" has won!"<<std::endl;
+            lost_arr[won] = 1;
+        }
+
+        for(int i = 0; i<4; i++){
+            if(arr[i].lost && lost_arr[arr[i].num] == 0){
+                lost_arr[arr[i].num] = 1;
+                std::cout<<"Player "<<arr[i].num<<" has lost!"<<std::endl;
+            }
         }
     }
 }
