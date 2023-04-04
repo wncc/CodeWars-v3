@@ -1,4 +1,4 @@
 loop:
-rt:90:
+rt:10:
 at:2:10:
 loop:

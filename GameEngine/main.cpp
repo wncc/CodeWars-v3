@@ -29,7 +29,7 @@
 #include <cstdlib>
 using boost::asio::ip::tcp;
 int lost_arr[4] = {0,0,0,0};
-int i=0;
+int number_of_players=0;
 
 // create the window
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "My window");
@@ -422,13 +422,13 @@ public:
     {
         participants_.insert(participant);
         name_table_[participant] = nickname;
-        if(i<4){
-            arr[i] = participant->k;
+        if(number_of_players<4){
+            arr[number_of_players] = participant->k;
             //std::cout<<"Here"<<std::endl;
             participant->num=std::stoi(nickname.data());
-            arr[i].num = std::stoi(nickname.data());
+            arr[number_of_players].num = std::stoi(nickname.data());
             //std::cout<<"wow"<<std::endl;
-            i++;
+            number_of_players++;
         }
         else{
             std::cout<<"Not enough space for participants"<<std::endl;
@@ -641,36 +641,41 @@ private:
                 else if(std::strcmp(c1, "at") == 0){
                     int z = std::stoi(c2);
                     int i = 0;
+                    int check = 0;
                     while(arr[z].lost || std::stoi(c2) == shared_from_this()->num){
                         z=(z+1)%4;
                         i++;
                         if(i==4){
+                            check = 1;
                             break;
                         }
                     }
-                    int x = shared_from_this()->k.attack(&(arr[z]), std::stoi(c3));
-                    
-                    if(x>100){
-                        x=100;
-                    }
-                    if(x>0){
-                        if(shared_from_this()->num == 0)
-                            for(int l = 0; l< troopCoords1.size()*(x/100); l++){
-                                troopCoords1.erase(troopCoords1.begin());
-                            }
-                        else if(shared_from_this()->num == 1)
-                            for(int l = 0; l< troopCoords2.size()*(x/100); l++){
-                                troopCoords2.erase(troopCoords2.begin());
-                            }
-                        else if(shared_from_this()->num == 2)
-                            for(int l = 0; l< troopCoords3.size()*(x/100); l++){
-                                troopCoords3.erase(troopCoords3.begin());
-                            }
-                        else if(shared_from_this()->num == 3)
-                            for(int l = 0; l< troopCoords4.size()*(x/100); l++){
-                                troopCoords4.erase(troopCoords4.begin());
-                            }   
-                    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                   // std::cout<<z<<std::endl;
+                    if(check == 0){
+                        int x = shared_from_this()->k.attack(&(arr[z]), std::stoi(c3));
+
+                        if(x>100){
+                            x=100;
+                        }
+                        if(x>0){
+                            if(shared_from_this()->num == 0)
+                                for(int l = 0; l< troopCoords1.size()*(x/100); l++){
+                                    troopCoords1.erase(troopCoords1.begin());
+                                }
+                            else if(shared_from_this()->num == 1)
+                                for(int l = 0; l< troopCoords2.size()*(x/100); l++){
+                                    troopCoords2.erase(troopCoords2.begin());
+                                }
+                            else if(shared_from_this()->num == 2)
+                                for(int l = 0; l< troopCoords3.size()*(x/100); l++){
+                                    troopCoords3.erase(troopCoords3.begin());
+                                }
+                            else if(shared_from_this()->num == 3)
+                                for(int l = 0; l< troopCoords4.size()*(x/100); l++){
+                                    troopCoords4.erase(troopCoords4.begin());
+                                }   
+                        }  
+                    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
                 }
             }
             else{
@@ -746,12 +751,12 @@ private:
 };
 
 int winLoop(){
-    
+    int counter1 = 0;
     while(true){
         //std::cout<<"winLoop"<<std::endl;
         int counter = 0;
         int won;
-        for(int i = 0; i<4; i++){
+        for(int i = 0; i<number_of_players; i++){
             if(lost_arr[arr[i].num] == 0){
                 counter++;
             }
@@ -760,14 +765,16 @@ int winLoop(){
             }
         }
 
-        if(counter == 3){
+        if(counter == number_of_players && counter1 == 0){
             std::cout<<"Player "<<won<<" has won!"<<std::endl;
+            counter1 = 1;
             lost_arr[won] = 1;
         }
 
-        for(int i = 0; i<4; i++){
+        for(int i = 0; i<number_of_players; i++){
             if(arr[i].lost && lost_arr[arr[i].num] == 0){
                 lost_arr[arr[i].num] = 1;
+                //std::cout<<i<<std::endl;
                 std::cout<<"Player "<<arr[i].num<<" has lost!"<<std::endl;
             }
         }
@@ -776,7 +783,7 @@ int winLoop(){
 
 int gameLoop(){
     while(true){
-        for(int p =0; p<4; p++){
+        for(int p =0; p<number_of_players; p++){
             if(!arr[p].lost){
                 if(arr[p].food <=0){
                     arr[p].food = 0;
