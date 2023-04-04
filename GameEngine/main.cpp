@@ -755,9 +755,9 @@ int winLoop(){
             if(arr[s].lost){
                 if(a[s] == 0){
                     std::cout<<"Player "<<s<<" has lost!!"<<std::endl;
+                    counter++;
                     a[s]=1;
-                }
-                counter++;
+                }   
             }
             else{
                 store=arr[s].num;
