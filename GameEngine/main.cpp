@@ -559,7 +559,7 @@ private:
 
             if(!shared_from_this()->k.lost){
                 if(std::strcmp(c1,"rf") == 0){
-                    bool x = shared_from_this()->k.recruit_farmers(std::stoi(c2));
+                    bool x = arr[shared_from_this()->num].recruit_farmers(std::stoi(c2));
                     if(x){
                         if(shared_from_this()->num == 0)
                             farmerCoords1.push_back(coord(rand()%2 +7, rand()%8 + 1));
@@ -572,7 +572,7 @@ private:
                     }
                 }
                 else if(std::strcmp(c1,"re") == 0){
-                    bool x = shared_from_this()->k.recruit_engineers(std::stoi(c2));
+                    bool x = arr[shared_from_this()->num].recruit_engineers(std::stoi(c2));
                     if(x){
                         if(shared_from_this()->num == 0)
                             engineerCoords1.push_back(coord(rand()%2 +1, rand()%8 + 1));
@@ -586,7 +586,7 @@ private:
                 }
                 else if(std::strcmp(c1,"rt") == 0){
                     //std::cout<<"Here"<<std::endl;
-                    bool x = shared_from_this()->k.recruit_troops(std::stoi(c2));
+                    bool x = arr[shared_from_this()->num].recruit_troops(std::stoi(c2));
                     if(x){
                         if(shared_from_this()->num == 0)
                             troopCoords1.push_back(coord(rand()%2 +7, rand()%8 + 1));
@@ -599,7 +599,7 @@ private:
                     }
                 }
                 else if(std::strcmp(c1,"rm") == 0){
-                    bool x = shared_from_this()->k.recruit_miners(std::stoi(c2));
+                    bool x = arr[shared_from_this()->num].recruit_miners(std::stoi(c2));
                     if(x){
                         if(shared_from_this()->num == 0)
                             minerCoords1.push_back(coord(rand()%2 +3, rand()%8 + 1));
@@ -612,7 +612,7 @@ private:
                     }
                 }
                 else if(std::strcmp(c1,"rs") == 0){
-                    bool x = shared_from_this()->k.recruit_spies(std::stoi(c2));
+                    bool x = arr[shared_from_this()->num].recruit_spies(std::stoi(c2));
                     if(x){
                         if(shared_from_this()->num == 0)
                             spyCoords1.push_back(coord(rand()%2 +5, rand()%8 + 1));
@@ -625,10 +625,10 @@ private:
                     }
                 }
                 else if(std::strcmp(c1,"ia") == 0){
-                    shared_from_this()->k.improve_attack(std::stof(c2));
+                    arr[shared_from_this()->num].improve_attack(std::stof(c2));
                 }
                 else if(std::strcmp(c1,"id") == 0){
-                    shared_from_this()->k.improve_defense(std::stof(c2));
+                    arr[shared_from_this()->num].improve_defense(std::stof(c2));
                 }
                 /*
                 else if(std::strcmp(c1,"sa") == 0){
@@ -636,7 +636,7 @@ private:
                 }
                 */
                 else if(std::strcmp(c1,"sc") == 0){
-                    shared_from_this()->k.spy_capture(&arr[std::stoi(c2)], std::stoi(c3));
+                    arr[shared_from_this()->num].spy_capture(&arr[std::stoi(c2)], std::stoi(c3));
                 }
                 else if(std::strcmp(c1, "at") == 0){
                     int z = std::stoi(c2);
@@ -652,7 +652,7 @@ private:
                     }
                    // std::cout<<z<<std::endl;
                     if(check == 0){
-                        int x = shared_from_this()->k.attack(&(arr[z]), std::stoi(c3));
+                        int x = arr[shared_from_this()->num].attack(&(arr[z]), std::stoi(c3));
 
                         if(x>100){
                             x=100;
