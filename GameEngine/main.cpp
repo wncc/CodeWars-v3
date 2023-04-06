@@ -427,6 +427,7 @@ public:
             //std::cout<<"Here"<<std::endl;
             participant->num=std::stoi(nickname.data());
             arr[number_of_players].num = std::stoi(nickname.data());
+            arr[number_of_players].in = true;
             //std::cout<<"wow"<<std::endl;
             number_of_players++;
         }
@@ -755,28 +756,32 @@ int winLoop(){
     while(true){
         //std::cout<<"winLoop"<<std::endl;
         int counter = 0;
-        int won=0;
+        Kingdom won;
         for(int i = 0; i<4; i++){
             if(lost_arr[arr[i].num] == 0){
                 counter++;
             }
             else{
-                won = arr[i].num;
+                won = arr[i];
                 counter1 = 1;
             }
         }
 
         if(counter == 3 && counter1 == 1){
-            std::cout<<"Player "<<won<<" has won!"<<std::endl;
-            counter1 = 2;
-            lost_arr[won] = 1;
+            if(won.in){
+                std::cout<<"Player "<<won.num<<" has won!"<<std::endl;
+                counter1 = 2;
+                lost_arr[won.num] = 1;
+            }
         }
 
         for(int i = 0; i<number_of_players; i++){
             if(arr[i].lost && lost_arr[arr[i].num] == 0){
-                lost_arr[arr[i].num] = 1;
-                //std::cout<<i<<std::endl;
-                std::cout<<"Player "<<arr[i].num<<" has lost!"<<std::endl;
+                if(arr[i].in){
+                    lost_arr[arr[i].num] = 1;
+                    //std::cout<<i<<std::endl;
+                    std::cout<<"Player "<<arr[i].num<<" has lost!"<<std::endl;
+                }
             }
         }
     }

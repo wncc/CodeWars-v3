@@ -28,6 +28,7 @@ struct Kingdom
     int land_width=10;
     int land_length=10;
     int land_area = land_length * land_width;
+    bool in = false;
 
     float percent_occ[4]={0,0,0,0};
     bool lost = false;
