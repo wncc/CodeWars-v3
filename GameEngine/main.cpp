@@ -763,7 +763,8 @@ int winLoop(){
             }
             else{
                 won = arr[i];
-                counter1 = 1;
+                if(won.in)
+                    counter1 = 1;
             }
         }
 
