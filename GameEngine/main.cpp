@@ -756,7 +756,7 @@ int winLoop(){
         //std::cout<<"winLoop"<<std::endl;
         int counter = 0;
         int won=0;
-        for(int i = 0; i<number_of_players; i++){
+        for(int i = 0; i<4; i++){
             if(lost_arr[arr[i].num] == 0){
                 counter++;
             }
@@ -766,7 +766,7 @@ int winLoop(){
             }
         }
 
-        if(counter == number_of_players-1 && counter1 == 1){
+        if(counter == 3 && counter1 == 1){
             std::cout<<"Player "<<won<<" has won!"<<std::endl;
             counter1 = 2;
             lost_arr[won] = 1;
