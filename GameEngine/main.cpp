@@ -758,7 +758,7 @@ int winLoop(){
         int counter = 0;
         Kingdom won;
         for(int i = 0; i<4; i++){
-            if(lost_arr[arr[i].num] == 0){
+            if(arr[i].lost){
                 counter++;
             }
             else{
