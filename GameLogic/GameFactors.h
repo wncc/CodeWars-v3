@@ -8,6 +8,7 @@
 #define GAME_FACTORS_H
 
 #include <unistd.h>
+#include <stdlib.h>
 
 
 struct Kingdom
@@ -173,7 +174,8 @@ struct Kingdom
 
 
     int attack(Kingdom *k, int n) // Attack on kingdom k with n percent of your soldiers
-    { 
+    {   
+        if(k->num != num){
         if(n>=100){
             n=100;
         }
@@ -199,12 +201,21 @@ struct Kingdom
         int count= 0;
         for(int i=0; i<4; i++){
             count+= k->percent_occ[i];
+            if(count >=100)
+                count = 100;
         }
+        std::cout<<"\033[1;31mPlayer \033[0m"<<k->num<<"\033[1;31m has lost \033[0m"<<count<<"\033[1;31m \% of their land\033[0m"<<std::endl;
         if(count>=100){
             k->lost= true;
+            if(!k->in){
+                std::cout<<"Player "<<k->num<<" has been defeated by player "<<num<<" !!"<<std::endl;
+                k->in = true;
+            }
         }
         sleep(1);
         return ans;
+        }
+        return 0;
     }
 
 };

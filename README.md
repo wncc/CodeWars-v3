@@ -25,9 +25,10 @@ and run them:</br>
 python <team_name>.py > team_number.txt
 ```
 
-Finally run the following in separate terminals inside the Object directory:
+Finally run the following in separate terminals inside the Object directory:</br>
+Note that the game will start only until <number_of_players> clients have started
 ```
-./main 6000
+./main <number_of_players> 6000
 ./client <player_number0> 127.0.0.1 6000
 ./client <player_number1> 127.0.0.1 6000
 ```

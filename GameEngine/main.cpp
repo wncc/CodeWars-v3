@@ -29,7 +29,10 @@
 #include <cstdlib>
 using boost::asio::ip::tcp;
 int lost_arr[4] = {0,0,0,0};
+int player_map[4] = {0,0,0,0};
+int player_map_inverse[4] = {5,5,5,5};
 int number_of_players=0;
+int player_max = 4;
 
 // create the window
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "My window");
@@ -422,12 +425,15 @@ public:
     {
         participants_.insert(participant);
         name_table_[participant] = nickname;
-        if(number_of_players<4){
-            arr[number_of_players] = participant->k;
+        if(number_of_players<=4){
+            arr[std::stoi(nickname.data())] = participant->k;
+            player_map[number_of_players] = std::stoi(nickname.data());
+            //std::cout<<"Player map "<<number_of_players<<" is "<<std::stoi(nickname.data())<<std::endl;
+            player_map_inverse[std::stoi(nickname.data())] = number_of_players;
             //std::cout<<"Here"<<std::endl;
             participant->num=std::stoi(nickname.data());
-            arr[number_of_players].num = std::stoi(nickname.data());
-            arr[number_of_players].in = true;
+            arr[std::stoi(nickname.data())].num = std::stoi(nickname.data());
+            //arr[number_of_players].in = true;
             //std::cout<<"wow"<<std::endl;
             number_of_players++;
         }
@@ -532,161 +538,177 @@ private:
 
     void readHandler(const boost::system::error_code& error)
     {
-        if (!error)
-        {
-            room_.broadcast(read_msg_, shared_from_this());
-            char s[100];
-            int k=0;
-            while(read_msg_[k] != '\0'){
-                s[k]= read_msg_[k];
-                k++;
-            }
-            //std::cout<<s<<std::endl;
-            char *c1 = strtok(s, ":");
-            char *c2 =strtok(NULL, ":");
-            char *c3 = strtok(NULL, ":");
-            char *c4 = strtok(NULL, ":");
-            //std::cout<<std::strcmp(c1,"rt")<<std::endl;
-            //std::cout<<c2<<std::endl;
-            //std::cout<<c1<<std::endl;
+        //if(number_of_players == player_max){
+            if (!error)
+            {
+                room_.broadcast(read_msg_, shared_from_this());
+                //std::cout<<"Shared from this "<<shared_from_this()->num<<std::endl;
+                char s[100];
+                int k=0;
+                while(read_msg_[k] != '\0'){
+                    s[k]= read_msg_[k];
+                    k++;
+                }
+                //std::cout<<s<<std::endl;
+                char *c1 = strtok(s, ":");
+                char *c2 =strtok(NULL, ":");
+                char *c3 = strtok(NULL, ":");
+                char *c4 = strtok(NULL, ":");
+                //std::cout<<std::strcmp(c1,"rt")<<std::endl;
+                //std::cout<<c2<<std::endl;
+                //std::cout<<c1<<std::endl;
 
-            //if the message sent is "pf:3:10" then player wants to produce food worth land area 3 and 10 farmers
-            //if(c1 == "pf"){
-            //    shared_from_this()->k.produce_food(std::stoi(c2), std::stoi(c3));
-            //}
-            //if(c1 == "pm"){
-            //    shared_from_this()->k.produce_material(std::stoi(c2), std::stoi(c3));
-            //}
+                //if the message sent is "pf:3:10" then player wants to produce food worth land area 3 and 10 farmers
+                //if(c1 == "pf"){
+                //    shared_from_this()->k.produce_food(std::stoi(c2), std::stoi(c3));
+                //}
+                //if(c1 == "pm"){
+                //    shared_from_this()->k.produce_material(std::stoi(c2), std::stoi(c3));
+                //}
 
-            if(!shared_from_this()->k.lost){
-                if(std::strcmp(c1,"rf") == 0){
-                    bool x = arr[shared_from_this()->num].recruit_farmers(std::stoi(c2));
-                    if(x){
-                        if(shared_from_this()->num == 0)
-                            farmerCoords1.push_back(coord(rand()%2 +7, rand()%8 + 1));
-                        else if(shared_from_this()->num == 1)
-                            farmerCoords2.push_back(coord((rand()%2)+17, rand()%8 + 1));
-                        else if(shared_from_this()->num == 2)
-                            farmerCoords3.push_back(coord(rand()%2 + 7, (rand()%8)+11));
-                        else if(shared_from_this()->num == 3)
-                            farmerCoords4.push_back(coord((rand()%2 + 17), (rand()%8)+11));
-                    }
-                }
-                else if(std::strcmp(c1,"re") == 0){
-                    bool x = arr[shared_from_this()->num].recruit_engineers(std::stoi(c2));
-                    if(x){
-                        if(shared_from_this()->num == 0)
-                            engineerCoords1.push_back(coord(rand()%2 +1, rand()%8 + 1));
-                        else if(shared_from_this()->num == 1)
-                            engineerCoords2.push_back(coord((rand()%2)+11, rand()%8 + 1));
-                        else if(shared_from_this()->num == 2)
-                            engineerCoords3.push_back(coord(rand()%2 + 1, (rand()%8)+11));
-                        else if(shared_from_this()->num == 3)
-                            engineerCoords4.push_back(coord((rand()%2 + 11), (rand()%8)+11));  
-                    }
-                }
-                else if(std::strcmp(c1,"rt") == 0){
-                    //std::cout<<"Here"<<std::endl;
-                    bool x = arr[shared_from_this()->num].recruit_troops(std::stoi(c2));
-                    if(x){
-                        if(shared_from_this()->num == 0)
-                            troopCoords1.push_back(coord(rand()%2 +7, rand()%8 + 1));
-                        else if(shared_from_this()->num == 1)
-                            troopCoords2.push_back(coord((rand()%2)+17, rand()%8 + 1));
-                        else if(shared_from_this()->num == 2)
-                            troopCoords3.push_back(coord(rand()%2 + 7, (rand()%8)+11));
-                        else if(shared_from_this()->num == 3)
-                            troopCoords4.push_back(coord((rand()%2 + 17), (rand()%8)+11));
-                    }
-                }
-                else if(std::strcmp(c1,"rm") == 0){
-                    bool x = arr[shared_from_this()->num].recruit_miners(std::stoi(c2));
-                    if(x){
-                        if(shared_from_this()->num == 0)
-                            minerCoords1.push_back(coord(rand()%2 +3, rand()%8 + 1));
-                        else if(shared_from_this()->num == 1)
-                            minerCoords2.push_back(coord((rand()%2)+13, rand()%8 + 1));
-                        else if(shared_from_this()->num == 2)
-                            minerCoords3.push_back(coord(rand()%2 + 3, (rand()%8)+11));
-                        else if(shared_from_this()->num == 3)
-                            minerCoords4.push_back(coord((rand()%2 + 13), (rand()%8)+11));
-                    }
-                }
-                else if(std::strcmp(c1,"rs") == 0){
-                    bool x = arr[shared_from_this()->num].recruit_spies(std::stoi(c2));
-                    if(x){
-                        if(shared_from_this()->num == 0)
-                            spyCoords1.push_back(coord(rand()%2 +5, rand()%8 + 1));
-                        else if(shared_from_this()->num == 1)
-                            spyCoords2.push_back(coord((rand()%2)+15, rand()%8 + 1));
-                        else if(shared_from_this()->num == 2)
-                            spyCoords3.push_back(coord(rand()%2 + 5, (rand()%8)+11));
-                        else if(shared_from_this()->num == 3)
-                            spyCoords4.push_back(coord((rand()%2 + 15), (rand()%8)+11));
-                    }
-                }
-                else if(std::strcmp(c1,"ia") == 0){
-                    arr[shared_from_this()->num].improve_attack(std::stof(c2));
-                }
-                else if(std::strcmp(c1,"id") == 0){
-                    arr[shared_from_this()->num].improve_defense(std::stof(c2));
-                }
-                /*
-                else if(std::strcmp(c1,"sa") == 0){
-                    shared_from_this()->k.square_assign(std::stoi(c2), std::stoi(c3), *c4);
-                }
-                */
-                else if(std::strcmp(c1,"sc") == 0){
-                    arr[shared_from_this()->num].spy_capture(&arr[std::stoi(c2)], std::stoi(c3));
-                }
-                else if(std::strcmp(c1, "at") == 0){
-                    int z = std::stoi(c2);
-                    int i = 0;
-                    int check = 0;
-                    while(arr[z].lost || std::stoi(c2) == shared_from_this()->num){
-                        z=(z+1)%4;
-                        i++;
-                        if(i==4){
-                            check = 1;
-                            break;
-                        }
-                    }
-                   // std::cout<<z<<std::endl;
-                    if(check == 0){
-                        int x = arr[shared_from_this()->num].attack(&(arr[z]), std::stoi(c3));
-
-                        if(x>100){
-                            x=100;
-                        }
-                        if(x>0){
+                if(!arr[shared_from_this()->num].lost && number_of_players == player_max){
+                    if(std::strcmp(c1,"rf") == 0){
+                        bool x = arr[shared_from_this()->num].recruit_farmers(std::stoi(c2));
+                        if(x){
                             if(shared_from_this()->num == 0)
-                                for(int l = 0; l< troopCoords1.size()*(x/100); l++){
-                                    troopCoords1.erase(troopCoords1.begin());
-                                }
+                                farmerCoords1.push_back(coord(rand()%2 +5, rand()%8 + 1));
                             else if(shared_from_this()->num == 1)
-                                for(int l = 0; l< troopCoords2.size()*(x/100); l++){
-                                    troopCoords2.erase(troopCoords2.begin());
-                                }
+                                farmerCoords2.push_back(coord((rand()%2)+15, rand()%8 + 1));
                             else if(shared_from_this()->num == 2)
-                                for(int l = 0; l< troopCoords3.size()*(x/100); l++){
-                                    troopCoords3.erase(troopCoords3.begin());
-                                }
+                                farmerCoords3.push_back(coord(rand()%2 + 5, (rand()%8)+11));
                             else if(shared_from_this()->num == 3)
-                                for(int l = 0; l< troopCoords4.size()*(x/100); l++){
-                                    troopCoords4.erase(troopCoords4.begin());
-                                }   
-                        }  
-                    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-                }
-            }
-            else{
-                room_.leave(shared_from_this());
-            }
+                                farmerCoords4.push_back(coord((rand()%2 + 15), (rand()%8)+11));
+                        }
+                    }
+                    else if(std::strcmp(c1,"re") == 0){
+                        bool x = arr[shared_from_this()->num].recruit_engineers(std::stoi(c2));
+                        if(x){
+                            if(shared_from_this()->num == 0)
+                                engineerCoords1.push_back(coord(rand()%2 +1, rand()%8 + 1));
+                            else if(shared_from_this()->num == 1)
+                                engineerCoords2.push_back(coord((rand()%2)+11, rand()%8 + 1));
+                            else if(shared_from_this()->num == 2)
+                                engineerCoords3.push_back(coord(rand()%2 + 1, (rand()%8)+11));
+                            else if(shared_from_this()->num == 3)
+                                engineerCoords4.push_back(coord((rand()%2 + 11), (rand()%8)+11));  
+                        }
+                    }
+                    else if(std::strcmp(c1,"rt") == 0){
+                        //std::cout<<"Here"<<std::endl;
+                        bool x = arr[shared_from_this()->num].recruit_troops(std::stoi(c2));
+                        if(x){
+                            if(shared_from_this()->num == 0)
+                                troopCoords1.push_back(coord(rand()%2 +7, rand()%8 + 1));
+                            else if(shared_from_this()->num == 1)
+                                troopCoords2.push_back(coord((rand()%2)+17, rand()%8 + 1));
+                            else if(shared_from_this()->num == 2)
+                                troopCoords3.push_back(coord(rand()%2 + 7, (rand()%8)+11));
+                            else if(shared_from_this()->num == 3)
+                                troopCoords4.push_back(coord((rand()%2 + 17), (rand()%8)+11));
+                        }
+                    }
+                    else if(std::strcmp(c1,"rm") == 0){
+                        bool x = arr[shared_from_this()->num].recruit_miners(std::stoi(c2));
+                        if(x){
+                            if(shared_from_this()->num == 0)
+                                minerCoords1.push_back(coord(rand()%2 +3, rand()%8 + 1));
+                            else if(shared_from_this()->num == 1)
+                                minerCoords2.push_back(coord((rand()%2)+13, rand()%8 + 1));
+                            else if(shared_from_this()->num == 2)
+                                minerCoords3.push_back(coord(rand()%2 + 3, (rand()%8)+11));
+                            else if(shared_from_this()->num == 3)
+                                minerCoords4.push_back(coord((rand()%2 + 13), (rand()%8)+11));
+                        }
+                    }
+                    else if(std::strcmp(c1,"rs") == 0){
+                        bool x = arr[shared_from_this()->num].recruit_spies(std::stoi(c2));
+                        if(x){
+                            if(shared_from_this()->num == 0)
+                                spyCoords1.push_back(coord(rand()%2 +5, rand()%8 + 1));
+                            else if(shared_from_this()->num == 1)
+                                spyCoords2.push_back(coord((rand()%2)+15, rand()%8 + 1));
+                            else if(shared_from_this()->num == 2)
+                                spyCoords3.push_back(coord(rand()%2 + 5, (rand()%8)+11));
+                            else if(shared_from_this()->num == 3)
+                                spyCoords4.push_back(coord((rand()%2 + 15), (rand()%8)+11));
+                        }
+                    }
+                    else if(std::strcmp(c1,"ia") == 0){
+                        arr[shared_from_this()->num].improve_attack(std::stof(c2));
+                    }
+                    else if(std::strcmp(c1,"id") == 0){
+                        arr[shared_from_this()->num].improve_defense(std::stof(c2));
+                    }
+                    /*
+                    else if(std::strcmp(c1,"sa") == 0){
+                        shared_from_this()->k.square_assign(std::stoi(c2), std::stoi(c3), *c4);
+                    }
+                    */
+                    else if(std::strcmp(c1,"sc") == 0){
+                        int z = std::stoi(c2);
+                        int i = 0;
+                        int check = 0;
+                        while(arr[z].lost || z == shared_from_this()->num || player_map_inverse[z] > number_of_players){
+                            z=(z+1)%number_of_players;
+                            i++;
+                            if(i==number_of_players){
+                                check = 1;
+                                break;
+                            }
+                        }
+                        if(check == 0)
+                        arr[shared_from_this()->num].spy_capture(&arr[std::stoi(c2)], std::stoi(c3));
+                    }
+                    else if(std::strcmp(c1, "at") == 0){
+                        int z = std::stoi(c2);
+                        int i = 0;
+                        int check = 0;
+                        while(arr[player_map[z]].lost || player_map[z] == shared_from_this()->num || z >= number_of_players){
+                            z=(z+1)%number_of_players;
+                            i++;
+                            if(i==number_of_players){
+                                check = 1;
+                                //std::cout<<"Break"<<std::endl;
+                                break;
+                            }
+                        }
+                       //std::cout<<shared_from_this()->num<<" "<<z<<std::endl;
+                        if(check == 0){
+                            int x = arr[shared_from_this()->num].attack(&(arr[player_map[z]]), std::stoi(c3));
 
-            boost::asio::async_read(socket_,
-                                    boost::asio::buffer(read_msg_, read_msg_.size()),
-                                    strand_.wrap(boost::bind(&personInRoom::readHandler, shared_from_this(), _1)));
-        }
+                            if(x>100){
+                                x=100;
+                            }
+                            if(x>0){
+                                if(shared_from_this()->num == 0)
+                                    for(int l = 0; l< troopCoords1.size()*(x/100); l++){
+                                        troopCoords1.erase(troopCoords1.begin());
+                                    }
+                                else if(shared_from_this()->num == 1)
+                                    for(int l = 0; l< troopCoords2.size()*(x/100); l++){
+                                        troopCoords2.erase(troopCoords2.begin());
+                                    }
+                                else if(shared_from_this()->num == 2)
+                                    for(int l = 0; l< troopCoords3.size()*(x/100); l++){
+                                        troopCoords3.erase(troopCoords3.begin());
+                                    }
+                                else if(shared_from_this()->num == 3)
+                                    for(int l = 0; l< troopCoords4.size()*(x/100); l++){
+                                        troopCoords4.erase(troopCoords4.begin());
+                                    }   
+                            }  
+                        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                    }
+                }
+                else{
+                    room_.leave(shared_from_this());
+                }
+
+                boost::asio::async_read(socket_,
+                                        boost::asio::buffer(read_msg_, read_msg_.size()),
+                                        strand_.wrap(boost::bind(&personInRoom::readHandler, shared_from_this(), _1)));
+            }
+        //}
     }
 
     void writeHandler(const boost::system::error_code& error)
@@ -750,68 +772,53 @@ private:
     tcp::acceptor acceptor_;
     chatRoom room_;
 };
-
-int winLoop(){
-    int counter1 = 0;
-    while(true){
-        //std::cout<<"winLoop"<<std::endl;
-        int counter = 0;
-        Kingdom won;
-        for(int i = 0; i<4; i++){
-            if(lost_arr[arr[i].num] == 0){
-                counter++;
-            }
-            else{
-                won = arr[i];
-                if(won.in)
+int counter1 = 0;
+int win = 0;
+void winLoop(){
+        while(true){
+            if(number_of_players == player_max){
+                int counter = 0;
+                for(int i = 0; i<number_of_players; i++){
+                    if(arr[player_map[i]].lost){
+                        counter++;
+                    }
+                    else{
+                        win = arr[player_map[i]].num;
+                        //std::cout<<"win "<<win<<std::endl;
+                    }
+                }
+                if(counter == number_of_players - 1 && counter1 == 0){
+                    std::cout<<"Player "<<win<<" has won!!"<<std::endl;
                     counter1 = 1;
-            }
-        }
-
-        if(counter == 3 && counter1 == 1){
-            if(won.in){
-                std::cout<<"Player "<<won.num<<" has won!"<<std::endl;
-                counter1 = 2;
-                lost_arr[won.num] = 1;
-            }
-        }
-
-        for(int i = 0; i<number_of_players; i++){
-            if(arr[i].lost && lost_arr[arr[i].num] == 0){
-                if(arr[i].in){
-                    lost_arr[arr[i].num] = 1;
-                    //std::cout<<i<<std::endl;
-                    std::cout<<"Player "<<arr[i].num<<" has lost!"<<std::endl;
                 }
             }
         }
-    }
 }
 
 int gameLoop(){
     while(true){
         for(int p =0; p<number_of_players; p++){
-            if(!arr[p].lost){
-                if(arr[p].food <=0){
-                    arr[p].food = 0;
-                    if(arr[p].num_farmers >1){
-                        arr[p].num_farmers -= 1;
+            if(!arr[player_map[p]].lost){
+                if(arr[player_map[p]].food <=0){
+                    arr[player_map[p]].food = 0;
+                    if(arr[player_map[p]].num_farmers >1){
+                        arr[player_map[p]].num_farmers -= 1;
                     }
-                    if(arr[p].num_troops >1){
-                        arr[p].num_troops -= 1;
+                    if(arr[player_map[p]].num_troops >1){
+                        arr[player_map[p]].num_troops -= 1;
                     }
-                    if(arr[p].num_spies >1){
-                        arr[p].num_spies -= 1;
+                    if(arr[player_map[p]].num_spies >1){
+                        arr[player_map[p]].num_spies -= 1;
                     }
-                    if(arr[p].num_miners >1){
-                        arr[p].num_miners -= 1;
+                    if(arr[player_map[p]].num_miners >1){
+                        arr[player_map[p]].num_miners -= 1;
                     }
-                    if(arr[p].num_engineers >1){
-                        arr[p].num_engineers -= 1;
+                    if(arr[player_map[p]].num_engineers >1){
+                        arr[player_map[p]].num_engineers -= 1;
                     }
                 }
-                arr[p].food -= 0.1*(arr[p].num_troops + arr[p].num_miners - 2*(arr[p].num_farmers)) - 0.01*(arr[p].land_area);
-                arr[p].raw_materials -= 0.1*(arr[p].num_troops - arr[p].num_miners - 2*(arr[p].num_farmers)) - 0.01*(arr[p].land_area);
+                arr[player_map[p]].food -= 0.1*(arr[player_map[p]].num_troops + arr[player_map[p]].num_miners - 2*(arr[player_map[p]].num_farmers)) - 0.01*(arr[player_map[p]].land_area);
+                arr[player_map[p]].raw_materials -= 0.1*(arr[player_map[p]].num_troops - arr[player_map[p]].num_miners - 2*(arr[player_map[p]].num_farmers)) - 0.01*(arr[player_map[p]].land_area);
             }
         }
         //std::cout<<"Player1 food:"<<arr[0].food<<std::endl;
@@ -833,12 +840,12 @@ int gameLoop(){
 
 int main(int argc, char * argv[])
 {
-    if (argc < 2)
+    if (argc < 3)
         {
-            std::cerr << "Usage: main <port> [<port> ...]\n";
+            std::cerr << "Usage: main <num_players> <port> [<port> ...]\n";
             return 1;
         }
-    
+    player_max = std::stoi(argv[1]);
     //Load all the Textures
     
     //Grass Texture
@@ -926,7 +933,7 @@ int main(int argc, char * argv[])
         std::cout << "[" << std::this_thread::get_id() << "]" << "server starts" << std::endl;
 
         std::list < std::shared_ptr < server >> servers;
-        for (int i = 1; i < argc; ++i)
+        for (int i = 2; i < argc; ++i)
         {
             tcp::endpoint endpoint(tcp::v4(), std::atoi(argv[i]));
             std::shared_ptr<server> a_server(new server(*io_service, *strand, endpoint));
@@ -947,7 +954,7 @@ int main(int argc, char * argv[])
 #endif
             workers.add_thread(t);
         }
-
+        
         boost::thread t1{gameLoop};
         boost::thread t2{winLoop};
         
