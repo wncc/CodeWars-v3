@@ -776,7 +776,7 @@ int winLoop(){
             }
         }
 
-        for(int i = 0; i<number_of_players; i++){
+        for(int i = 0; i<4; i++){
             if(arr[i].lost && lost_arr[arr[i].num] == 0){
                 if(arr[i].in){
                     lost_arr[arr[i].num] = 1;
